@@ -32,11 +32,27 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "✅ Build successful!"
     echo ""
-    echo "The executable is located at:"
-    echo "  .build/release/KeyboardTrackpad"
+
+    # Create .app bundle
+    APP_DIR="KeyboardTrackpad.app"
+    echo "Creating app bundle: $APP_DIR"
+
+    rm -rf "$APP_DIR"
+    mkdir -p "$APP_DIR/Contents/MacOS"
+    cp .build/release/KeyboardTrackpad "$APP_DIR/Contents/MacOS/"
+    cp Info.plist "$APP_DIR/Contents/"
+
+    # Ad-hoc codesign the bundle
+    codesign --force --sign - "$APP_DIR"
+
+    echo ""
+    echo "✅ App bundle created and signed!"
+    echo ""
+    echo "The app bundle is located at:"
+    echo "  $APP_DIR"
     echo ""
     echo "To run the app:"
-    echo "  ./.build/release/KeyboardTrackpad"
+    echo "  open $APP_DIR"
     echo ""
     echo "Note: You will need to grant Accessibility permissions on first run."
 else

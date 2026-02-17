@@ -22,7 +22,7 @@
     <true/>
     <key>NSAppleEventsUsageDescription</key>
     <string>This app needs to monitor keyboard events to provide keyboard trackpad functionality.</string>
-    <key>NSSystemAdministrationUsageDescription</key>
+    <key>NSAccessibilityUsageDescription</key>
     <string>This app needs accessibility permissions to monitor keyboard input and control the cursor.</string>
 </dict>
 </plist>
