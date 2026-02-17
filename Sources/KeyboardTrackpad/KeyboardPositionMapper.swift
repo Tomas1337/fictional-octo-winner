@@ -103,11 +103,11 @@ class KeyboardPositionMapper {
         ]
         
         // Map each row
-        mapRow(keys: row1Keys, row: 0, totalRows: gridRows, cellWidth: cellWidth, cellHeight: cellHeight)
-        mapRow(keys: row2Keys, row: 1, totalRows: gridRows, cellWidth: cellWidth, cellHeight: cellHeight)
-        mapRow(keys: row3Keys, row: 2, totalRows: gridRows, cellWidth: cellWidth, cellHeight: cellHeight)
-        mapRow(keys: row4Keys, row: 3, totalRows: gridRows, cellWidth: cellWidth, cellHeight: cellHeight)
-        mapRow(keys: row5Keys, row: 4, totalRows: gridRows, cellWidth: cellWidth, cellHeight: cellHeight)
+        mapRow(keys: row1Keys, row: 0, totalRows: gridRows, gridCols: gridCols, cellWidth: cellWidth, cellHeight: cellHeight)
+        mapRow(keys: row2Keys, row: 1, totalRows: gridRows, gridCols: gridCols, cellWidth: cellWidth, cellHeight: cellHeight)
+        mapRow(keys: row3Keys, row: 2, totalRows: gridRows, gridCols: gridCols, cellWidth: cellWidth, cellHeight: cellHeight)
+        mapRow(keys: row4Keys, row: 3, totalRows: gridRows, gridCols: gridCols, cellWidth: cellWidth, cellHeight: cellHeight)
+        mapRow(keys: row5Keys, row: 4, totalRows: gridRows, gridCols: gridCols, cellWidth: cellWidth, cellHeight: cellHeight)
         
         // Map arrow keys to bottom right corner
         mapArrowKeys(keys: row6Keys, cellWidth: cellWidth, cellHeight: cellHeight)
@@ -116,12 +116,12 @@ class KeyboardPositionMapper {
         print("Screen bounds: \(screenBounds)")
     }
     
-    private func mapRow(keys: [UInt16], row: Int, totalRows: Int, cellWidth: CGFloat, cellHeight: CGFloat) {
+    private func mapRow(keys: [UInt16], row: Int, totalRows: Int, gridCols: Int, cellWidth: CGFloat, cellHeight: CGFloat) {
         let rowCount = keys.count
         let yPosition = screenBounds.minY + (CGFloat(row) + 0.5) * cellHeight
         
         for (index, keyCode) in keys.enumerated() {
-            let xPosition = screenBounds.minX + (CGFloat(index) + 0.5) * cellWidth * (CGFloat(15) / CGFloat(rowCount))
+            let xPosition = screenBounds.minX + (CGFloat(index) + 0.5) * cellWidth * (CGFloat(gridCols) / CGFloat(rowCount))
             let position = CGPoint(x: xPosition, y: yPosition)
             keyToPositionMap[keyCode] = position
         }

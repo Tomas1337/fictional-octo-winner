@@ -8,6 +8,9 @@ class KeyboardTrackpadMode {
     private var isTrackpadModeActive = false
     private let keyMapper = KeyboardPositionMapper()
     
+    // Event types to monitor
+    private static let monitoredEvents: NSEvent.EventTypeMask = [.flagsChanged, .keyDown]
+    
     // Trigger key detection - Fn key (NSEventModifierFlags doesn't have Fn, so we use function key code)
     // We'll use a fallback with Control+Option as an alternative trigger
     private let useFallbackTrigger = true // Set to false to use Fn key only if detectable
@@ -29,11 +32,11 @@ class KeyboardTrackpadMode {
     
     private func setupEventMonitors() {
         // Monitor for flags changed to detect trigger key press/release
-        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.flagsChanged, .keyDown]) { [weak self] event in
+        globalMonitor = NSEvent.addGlobalMonitorForEvents(matching: Self.monitoredEvents) { [weak self] event in
             self?.handleEvent(event)
         }
         
-        localMonitor = NSEvent.addLocalMonitorForEvents(matching: [.flagsChanged, .keyDown]) { [weak self] event in
+        localMonitor = NSEvent.addLocalMonitorForEvents(matching: Self.monitoredEvents) { [weak self] event in
             self?.handleEvent(event)
             return event // Pass through all events - let the system handle them normally
         }
@@ -86,9 +89,6 @@ class KeyboardTrackpadMode {
     }
     
     private func warpCursor(to point: CGPoint) {
-        // Use Quartz Display Services to warp cursor
-        CGDisplayMoveCursorToPoint(CGMainDisplayID(), point)
-        
         // For multi-display support, we need to find which display contains the point
         // and use that display's ID
         let displayCount = UInt32(16) // Maximum displays to check
@@ -97,14 +97,18 @@ class KeyboardTrackpadMode {
         
         CGGetActiveDisplayList(displayCount, &activeDisplays, &displayCountOut)
         
+        // Find the display that contains the target point and warp cursor there
         for i in 0..<Int(displayCountOut) {
             let displayID = activeDisplays[i]
             let bounds = CGDisplayBounds(displayID)
             
             if bounds.contains(point) {
                 CGDisplayMoveCursorToPoint(displayID, point)
-                break
+                return
             }
         }
+        
+        // Fallback: if point is not in any display, use main display
+        CGDisplayMoveCursorToPoint(CGMainDisplayID(), point)
     }
 }
