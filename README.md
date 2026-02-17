@@ -1,141 +1,131 @@
-# Keyboard Trackpad for macOS
+# KeyboardTrackpad for macOS
 
-Turn your Apple keyboard into a trackpad! This macOS app enables a temporary "keyboard trackpad mode" where your keyboard keys map to absolute screen positions.
+**Your keyboard is now a trackpad.** Hold one key, tap another — your cursor teleports. No mouse. No trackpad. Just your keyboard.
+
+KeyboardTrackpad is a lightweight macOS menu bar app that transforms your Apple keyboard into a full-screen cursor controller. Hold the **Fn/Globe** key (or **Control+Option**), press any letter or number key, and the cursor instantly warps to the corresponding position on your screen.
+
+## Why KeyboardTrackpad?
+
+Ever been deep in a coding session, hands on the home row, and had to reach for the mouse just to click something across the screen? That context switch kills your flow.
+
+KeyboardTrackpad eliminates it. Your keyboard becomes a spatial map of your entire screen:
+
+```
+┌──────────────────────────────────────────────┐
+│  `  1  2  3  4  5  6  7  8  9  0  -  =  ⌫  │  ← Top of screen
+│  ⇥  Q  W  E  R  T  Y  U  I  O  P  [  ]  \  │
+│  ⇪  A  S  D  F  G  H  J  K  L  ;  '  ⏎     │  ← Middle
+│  ⇧  Z  X  C  V  B  N  M  ,  .  /  ⇧        │
+│     ⌥  ⌘  ━━━━SPACE━━━━  ⌘  ⌥              │  ← Bottom
+└──────────────────────────────────────────────┘
+```
+
+Press **F** while holding the trigger — cursor lands in the center-left. Press **O** — it jumps to the upper-right. Every key is a destination.
 
 ## Features
 
-- **Trigger Key Activation**: Hold Fn/Globe key (or Control+Option as fallback) to enter trackpad mode
-- **Instant Cursor Warp**: Press any key to warp the cursor to its mapped screen region
-- **Immediate Exit**: Release the trigger key to exit mode and resume normal typing
-- **Multi-Display Support**: Safely handles multiple displays
-- **Apple Keyboards Only**: Optimized for Apple keyboard layouts
-- **Non-Intrusive**: Normal typing is completely unaffected when not in trackpad mode
+- **Instant Cursor Warping** — No animation, no drift. The cursor teleports to the exact screen position mapped to each key. It's as fast as you can type.
+- **Zero Learning Curve** — The mapping follows your physical keyboard layout. Top row = top of screen. Bottom row = bottom. Left side = left. Right side = right. You already know where every key is.
+- **Two Activation Methods** — Use the **Fn/Globe** key on modern Macs, or **Control+Option** on any keyboard. Both work simultaneously.
+- **Multi-Display Support** — Got multiple monitors? The key grid stretches across your entire combined screen space automatically.
+- **Lives in Your Menu Bar** — Runs quietly as a menu bar app. No Dock icon, no windows, no distractions. Just a small keyboard icon that lets you know it's running.
+- **Normal Typing Unaffected** — KeyboardTrackpad only activates while you hold the trigger key. Release it and your keyboard works exactly as before. Not a single keystroke is intercepted during normal use.
+- **No Dependencies** — Pure Swift. No Electron, no frameworks, no bloat. Under 500 lines of code total.
 
-## Quick Start
+## Getting Started
+
+### From the App Store
+
+1. Download KeyboardTrackpad from the Mac App Store
+2. Launch the app — you'll see a keyboard icon appear in your menu bar
+3. Grant **Accessibility permissions** when prompted (required for cursor control)
+4. Hold **Fn/Globe** (or **Control+Option**), press any key, and watch the cursor jump
+
+### Building from Source
+
+Requires macOS 13.0+ and Swift 5.9+.
 
 ```bash
-# Build (requires macOS)
+# Clone the repo
+git clone https://github.com/Tomas1337/fictional-octo-winner.git
+cd fictional-octo-winner
+
+# Build and create a signed .app bundle
 ./build.sh
 
-# Run
+# Or build manually
+swift build -c release
+
+# Run directly
 .build/release/KeyboardTrackpad
 ```
 
-Then:
-1. Grant Accessibility permissions when prompted
-2. Hold Fn/Globe (or Control+Option)
-3. Press any key to warp cursor to that position
-4. Release to exit mode
+The build script creates a `KeyboardTrackpad.app` bundle you can drag to your Applications folder.
 
-## Documentation
+## How to Use
 
-- **[USAGE.md](USAGE.md)** - Detailed usage guide with examples and tips
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and design
-- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Development guide for contributors
+1. **Launch** — The app starts in your menu bar (keyboard icon)
+2. **Hold the trigger** — Press and hold **Fn/Globe** or **Control+Option**
+3. **Tap a key** — While holding the trigger, press any key to warp the cursor to that position
+4. **Release** — Let go of the trigger key and you're back to normal typing
+
+That's it. Three seconds to learn, and you'll wonder how you lived without it.
+
+### Tips
+
+- **Home row for precision** — The **A-S-D-F-G-H-J-K-L** keys map to a horizontal band across the middle of your screen. Great for reaching toolbar buttons, tabs, and sidebars.
+- **Number row for the top** — Need to hit a menu bar item or browser tab? The number keys cover the top edge of your screen.
+- **Space bar for center** — Tap space to jump to the dead center of your screen.
+- **Arrow keys** — Mapped to the bottom-right corner for fine-grained navigation.
 
 ## Requirements
 
-- macOS 13.0 or later
-- Apple keyboard
-- Accessibility permissions (will be prompted on first run)
-
-## How It Works
-
-The app monitors your keyboard using macOS Accessibility APIs. When you hold the trigger key (Fn/Globe or Control+Option), it enters "trackpad mode." In this mode, each key on your keyboard corresponds to a specific screen position. Press a key, and the cursor instantly warps to that position using Quartz Display Services.
-
-### Key Mapping Example
-
-```
-Screen Layout:
-┌─────────────────────────────────┐
-│ 1  2  3  4  5  6  7  8  9  0    │  ← Numbers → Top of screen
-│                                 │
-│ Q  W  E  R  T  Y  U  I  O  P    │  ← QWERTY → Upper area
-│                                 │
-│ A  S  D  F  G  H  J  K  L  ;    │  ← ASDF → Middle area
-│                                 │
-│ Z  X  C  V  B  N  M  ,  .  /    │  ← ZXCV → Lower area
-│                                 │
-│        SPACE (center)           │  ← Space → Bottom
-└─────────────────────────────────┘
-```
-
-## Building from Source
-
-This project uses Swift Package Manager:
-
-```bash
-# Build the app
-swift build -c release
-
-# The executable will be in .build/release/KeyboardTrackpad
-```
-
-## Usage
-
-1. Launch the app (you'll see a keyboard icon in the menu bar)
-2. Grant Accessibility permissions when prompted (System Settings > Privacy & Security > Accessibility)
-3. Hold the Fn/Globe key (or Control+Option together)
-4. While holding, press any key to warp the cursor to that key's mapped position
-5. Release to exit trackpad mode and resume normal typing
-
-## Technical Details
-
-The app consists of:
-- **AppDelegate.swift**: Menu bar app lifecycle and permissions handling
-- **KeyboardTrackpadMode.swift**: Event monitoring and mode activation logic
-- **KeyboardPositionMapper.swift**: Keyboard key to screen position mapping
-
-### APIs Used
-- **Accessibility API**: For global keyboard event monitoring
-- **Quartz Display Services**: For cursor warping (`CGDisplayMoveCursorToPoint`)
-- **Carbon HIToolbox**: For keyboard key code constants
-- **AppKit (Cocoa)**: For menu bar UI and app lifecycle
-
-## Multi-Display Support
-
-The app automatically detects all connected displays and distributes the keyboard mapping across the combined screen space. When you press a key, the cursor warps to the correct display based on the target position.
-
-## Permissions
-
-The app requires:
-- **Accessibility**: To monitor keyboard events globally and control the cursor position
-
-The app will prompt for these permissions on first launch and guide you to System Settings if needed.
+- macOS 13.0 (Ventura) or later
+- Apple keyboard (optimized for Apple key layouts)
+- Accessibility permissions (the app will prompt you on first launch)
 
 ## Privacy & Security
 
-- No keyboard data is logged, stored, or transmitted
-- Only monitors modifier keys and key codes (not typed characters)
-- All processing is completely local - no network access
-- Open source - review the code yourself!
+KeyboardTrackpad takes your privacy seriously:
 
-## Limitations
-
-- **macOS only**: Requires macOS 13.0 or later
-- **Apple keyboards**: Optimized for Apple keyboard layouts
-- **No click simulation**: Only moves cursor, doesn't perform clicks
-- **No continuous motion**: Cursor warps instantly (by design)
-- **Requires accessibility**: Must grant system permissions
+- **No data collection** — Zero analytics, zero telemetry, zero network calls
+- **No keylogging** — The app reads key codes (which physical key was pressed), not characters. It never knows what you're typing
+- **Fully local** — All processing happens on your Mac. Nothing leaves your device
+- **Open source** — Every line of code is right here for you to inspect
 
 ## Troubleshooting
 
-### Cursor not moving?
-- Ensure you're holding the trigger key (Fn/Globe or Control+Option)
-- Check that Accessibility permissions are granted
-- Restart the app if you recently connected/disconnected displays
+**Cursor not moving?**
+- Make sure you're holding the trigger key (Fn/Globe or Control+Option) *while* pressing other keys
+- Check that Accessibility permissions are enabled: **System Settings > Privacy & Security > Accessibility**
+- Try quitting and relaunching the app
 
-### Keys still typing in trackpad mode?
-This is expected behavior. The app observes key events but doesn't suppress them. Consider using the feature when no text field is focused.
+**App not appearing in menu bar?**
+- Look for the keyboard icon in your menu bar (top-right of your screen)
+- If you have many menu bar icons, it may be hidden — try closing other menu bar apps
+
+**Permissions dialog not showing?**
+- Open **System Settings > Privacy & Security > Accessibility** manually and add KeyboardTrackpad
+
+## Technical Details
+
+KeyboardTrackpad is built with native macOS APIs:
+
+- **CGEventTap** — Low-level Quartz event interception for reliable key capture, even with modifier keys held
+- **CGWarpMouseCursorPosition** — Instant cursor positioning using global Quartz coordinates
+- **CGGetActiveDisplayList** — Dynamic multi-display detection and coordinate mapping
+- **Carbon HIToolbox** — Hardware-level virtual key code mapping
+
+The app installs a session-level event tap that intercepts `flagsChanged` and `keyDown` events before system-level transformations. This ensures the Fn/Globe key works reliably on all Mac models, including newer Apple Silicon machines where the Globe key triggers system behaviors.
 
 ## Contributing
 
-Contributions are welcome! Please see [DEVELOPMENT.md](DEVELOPMENT.md) for development setup, code structure, and guidelines.
+Contributions are welcome! The codebase is intentionally small and focused — four Swift files, no external dependencies.
 
 ## License
 
-MIT License - see LICENSE file for details
+MIT License — see [LICENSE](LICENSE) for details.
 
-## Acknowledgments
+---
 
-This project implements a unique approach to keyboard-based cursor control using macOS native APIs, inspired by the need for quick cursor positioning without traditional pointing devices.
+**KeyboardTrackpad** — Because reaching for the mouse is so last decade.
