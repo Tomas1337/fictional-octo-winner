@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>Keyboard Trackpad</string>
+    <key>CFBundleExecutable</key>
+    <string>KeyboardTrackpad</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.keyboardtrackpad.app</string>
+    <key>CFBundleName</key>
+    <string>KeyboardTrackpad</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>13.0</string>
+    <key>LSUIElement</key>
+    <true/>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>This app needs to monitor keyboard events to provide keyboard trackpad functionality.</string>
+    <key>NSSystemAdministrationUsageDescription</key>
+    <string>This app needs accessibility permissions to monitor keyboard input and control the cursor.</string>
+</dict>
+</plist>
